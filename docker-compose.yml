@@ -1,0 +1,34 @@
+services:
+  order-service:
+    build: ./app/order-service
+    container_name: ${ORDER_SERVICE_NAME:-order-service}
+    ports:
+      - "${ORDER_SERVICE_PORT:-3001}:${ORDER_SERVICE_PORT:-3001}"
+    environment:
+      - PORT=${ORDER_SERVICE_PORT:-3001}
+    networks:
+      - app-network
+
+  tracking-service:
+    build: ./app/tracking-service
+    container_name: ${TRACKING_SERVICE_NAME:-tracking-service}
+    ports:
+      - "${TRACKING_SERVICE_PORT:-3002}:${TRACKING_SERVICE_PORT:-3002}"
+    environment:
+      - PORT=${TRACKING_SERVICE_PORT:-3002}
+    networks:
+      - app-network
+
+  notification-service:
+    build: ./app/notification-service
+    container_name: ${NOTIFICATION_SERVICE_NAME:-notification-service}
+    ports:
+      - "${NOTIFICATION_SERVICE_PORT:-3003}:${NOTIFICATION_SERVICE_PORT:-3003}"
+    environment:
+      - PORT=${NOTIFICATION_SERVICE_PORT:-3003}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
