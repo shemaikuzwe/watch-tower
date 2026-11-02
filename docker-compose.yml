@@ -29,6 +29,15 @@ services:
     networks:
       - app-network
 
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
