@@ -6,6 +6,11 @@ services:
       - "${ORDER_SERVICE_PORT:-3001}:${ORDER_SERVICE_PORT:-3001}"
     environment:
       - PORT=${ORDER_SERVICE_PORT:-3001}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     networks:
       - app-network
 
@@ -16,6 +21,11 @@ services:
       - "${TRACKING_SERVICE_PORT:-3002}:${TRACKING_SERVICE_PORT:-3002}"
     environment:
       - PORT=${TRACKING_SERVICE_PORT:-3002}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     networks:
       - app-network
 
@@ -26,6 +36,11 @@ services:
       - "${NOTIFICATION_SERVICE_PORT:-3003}:${NOTIFICATION_SERVICE_PORT:-3003}"
     environment:
       - PORT=${NOTIFICATION_SERVICE_PORT:-3003}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     networks:
       - app-network
 
