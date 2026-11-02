@@ -1,0 +1,14 @@
+{
+  "id": null,
+  "uid": "watchtower-services",
+  "title": "WatchTower Services",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "time": { "from": "now-1h", "to": "now" },
+  "panels": [
+    { "id": 1, "type": "timeseries", "title": "HTTP request rate by service", "gridPos": { "h": 9, "w": 12, "x": 0, "y": 0 }, "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }, "targets": [{ "expr": "sum by (job) (rate(http_requests_total[5m]))", "legendFormat": "{{job}}", "refId": "A" }], "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] }, "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } } },
+    { "id": 2, "type": "timeseries", "title": "5xx response rate by service", "gridPos": { "h": 9, "w": 12, "x": 12, "y": 0 }, "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }, "targets": [{ "expr": "sum by (job) (rate(http_requests_total{status=~\"5..\"}[5m]))", "legendFormat": "{{job}}", "refId": "A" }], "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] }, "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } } },
+    { "id": 3, "type": "stat", "title": "Service health (Prometheus scrape status)", "gridPos": { "h": 5, "w": 24, "x": 0, "y": 9 }, "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" }, "targets": [{ "expr": "up{job=~\"order-service|tracking-service|notification-service\"}", "legendFormat": "{{job}}", "refId": "A" }], "fieldConfig": { "defaults": { "min": 0, "max": 1, "mappings": [{ "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }], "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": 0 }, { "color": "green", "value": 1 }] } }, "overrides": [] }, "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "auto", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "value_and_name" } }
+  ]
+}
